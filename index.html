@@ -8,7 +8,7 @@
     <style>
         :root {
             --primary: #1e293b;
-            --accent: #f59e0b; /* Amarillo/Naranja de los títulos */
+            --accent: #f59e0b;
             --link-color: #3b82f6;
             --pro-bg: #f0fdf4;
             --pro-border: #16a34a;
@@ -29,20 +29,41 @@
             margin: 0;
             display: flex;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        /* --- Navegación Lateral con Emojis --- */
+        /* --- Botón Menú Móvil --- */
+        .menu-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- Navegación Lateral --- */
         nav {
             width: var(--sidebar-width);
             height: 100vh;
             background: var(--primary);
             color: white;
             position: fixed;
+            left: 0;
+            top: 0;
             padding: 2rem 1.2rem;
             display: flex;
             flex-direction: column;
             box-shadow: 4px 0 15px rgba(0,0,0,0.1);
             z-index: 100;
+            transition: transform 0.3s ease;
         }
 
         nav h2 { 
@@ -65,11 +86,11 @@
             font-size: 0.95rem;
             transition: all 0.2s ease;
         }
-        nav a:hover { background: #334155; color: white; transform: translateX(5px); }
+        nav a:hover { background: #334155; color: white; }
         nav a.active { background: var(--accent); color: var(--primary); font-weight: 700; }
         nav a span { margin-right: 12px; font-size: 1.2rem; }
 
-        /* --- Contenido que ocupa toda la pantalla --- */
+        /* --- Contenido Principal --- */
         main {
             flex: 1;
             margin-left: var(--sidebar-width);
@@ -78,10 +99,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: margin-left 0.3s ease;
         }
 
         .full-width-container {
-            width: 95%; /* Uso máximo de la pantalla */
+            width: 95%;
             max-width: 1600px;
         }
 
@@ -107,7 +129,6 @@
             line-height: 1.8;
         }
 
-        /* Títulos con indicador lateral de color */
         h2 { 
             font-size: 2.2rem; 
             color: var(--primary); 
@@ -127,13 +148,11 @@
         }
 
         h3 { color: var(--link-color); margin-top: 2.5rem; font-size: 1.5rem; }
-
         .text-highlight { color: #4338ca; font-weight: 600; }
 
-        /* Grids para aprovechar el ancho */
         .grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin: 2rem 0;
         }
@@ -143,87 +162,89 @@
             padding: 2rem;
             border-radius: 15px;
             border: 1px solid #e2e8f0;
-            transition: border-color 0.3s;
         }
-        .grid-item:hover { border-color: var(--accent); }
         .grid-item strong { color: var(--accent); font-size: 1.1rem; display: block; margin-bottom: 0.5rem; }
 
-        /* Argumentos A Favor y En Contra */
         .argument-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             margin-top: 2rem;
         }
-        .pro-box { 
-            background: var(--pro-bg); 
-            border: 2px solid var(--pro-border); 
-            padding: 2rem; 
-            border-radius: 15px; 
-            color: #065f46;
-        }
-        .con-box { 
-            background: var(--con-bg); 
-            border: 2px solid var(--con-border); 
-            padding: 2rem; 
-            border-radius: 15px; 
-            color: #991b1b;
-        }
-        .pro-box h4, .con-box h4 { margin-top: 0; font-size: 1.4rem; text-transform: uppercase; }
+        .pro-box { background: var(--pro-bg); border: 2px solid var(--pro-border); padding: 2rem; border-radius: 15px; color: #065f46; }
+        .con-box { background: var(--con-bg); border: 2px solid var(--con-border); padding: 2rem; border-radius: 15px; color: #991b1b; }
 
-        /* Glosario en columnas */
         .glossary {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
-        .glossary-item { padding: 1rem; border-bottom: 1px dashed #cbd5e1; }
-        .glossary-item strong { color: var(--link-color); }
 
-        footer {
-            margin-top: 5rem;
-            text-align: center;
-            color: var(--text-main);
-            padding: 3rem;
-            border-top: 1px solid #e2e8f0;
-            font-weight: 600;
-        }
+        footer { margin-top: 5rem; text-align: center; color: var(--text-main); padding: 3rem; border-top: 1px solid #e2e8f0; font-weight: 600; }
 
-        @media (max-width: 1024px) {
+        /* --- MEDIA QUERIES PARA CELULARES --- */
+        @media (max-width: 900px) {
+            .menu-btn { display: block; }
+            
+            nav {
+                transform: translateX(-100%); /* Escondido por defecto */
+                width: 260px;
+            }
+            
+            nav.open {
+                transform: translateX(0); /* Se muestra al clickear */
+            }
+
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .full-width-container { width: 100%; }
+
+            header { padding: 2.5rem 1.5rem; border-radius: 0; margin: -1rem -1rem 2rem -1rem; }
+            header h1 { font-size: 1.8rem; }
+            header p { font-size: 1rem; }
+
+            .card { padding: 1.5rem; border-radius: 15px; }
+            h2 { font-size: 1.6rem; }
+            
+            .grid-layout { grid-template-columns: 1fr; gap: 1rem; }
             .argument-split { grid-template-columns: 1fr; }
-            nav { width: 80px; padding: 2rem 0; align-items: center; }
-            nav h2, nav a b { display: none; }
-            main { margin-left: 80px; width: calc(100% - 80px); }
-            .card { padding: 2rem; }
+            
+            .glossary { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<nav>
+<button class="menu-btn" onclick="toggleMenu()">☰ MENÚ</button>
+
+<nav id="sidebar">
     <h2>Guía</h2>
-    <a href="#intro" class="active"><span>📖</span><b>Introducción</b></a>
-    <a href="#historia"><span>🏛️</span><b>Antecedentes</b></a>
-    <a href="#elementos"><span>🧩</span><b>Elementos</b></a>
-    <a href="#teorias"><span>🧠</span><b>Teorías</b></a>
-    <a href="#tipos"><span>🗣️</span><b>Tipos</b></a>
-    <a href="#medios"><span>📝</span><b>Medios</b></a>
-    <a href="#argumentos"><span>⚖️</span><b>Argumentos</b></a>
-    <a href="#glosario"><span>📑</span><b>Glosario</b></a>
-    <a href="#bibliografia"><span>📚</span><b>Bibliografía</b></a>
+    <a href="#intro" class="active" onclick="closeMenu()"><span>📖</span><b>Introducción</b></a>
+    <a href="#historia" onclick="closeMenu()"><span>🏛️</span><b>Antecedentes</b></a>
+    <a href="#elementos" onclick="closeMenu()"><span>🧩</span><b>Elementos</b></a>
+    <a href="#teorias" onclick="closeMenu()"><span>🧠</span><b>Teorías</b></a>
+    <a href="#tipos" onclick="closeMenu()"><span>🗣️</span><b>Tipos</b></a>
+    <a href="#medios" onclick="closeMenu()"><span>📝</span><b>Medios</b></a>
+    <a href="#argumentos" onclick="closeMenu()"><span>⚖️</span><b>Argumentos</b></a>
+    <a href="#glosario" onclick="closeMenu()"><span>📑</span><b>Glosario</b></a>
+    <a href="#bibliografia" onclick="closeMenu()"><span>📚</span><b>Bibliografía</b></a>
 </nav>
 
 <main>
     <div class="full-width-container">
         <header>
             <h1>El Lenguaje como Vehículo del Pensamiento</h1>
-            <p>Explorando la conexión profunda entre cómo hablamos y cómo entendemos el mundo.</p>
+            <p>Conexión profunda entre cómo hablamos y entendemos el mundo.</p>
         </header>
 
         <section id="intro">
             <div class="card">
                 <h2>Introducción</h2>
-                <p>Esta guía te ofrece un panorama completo, claro y con sustancia sobre el tema. Está diseñada para que la uses como material de estudio: lee, subraya, reflexiona y responde las preguntas al final. No es un tratado interminable, pero tampoco un resumen superficial. El enfoque es filosófico, psicológico y lingüístico, con énfasis en las principales teorías y sus implicaciones.</p>
+                <p>Esta guía te ofrece un panorama completo, claro y con sustancia sobre el tema. Está diseñada para que la uses como material de estudio: lee, subraya, reflexiona y responde las preguntas al final. No es un tratado interminable, pero tampoco un resumen superficial.</p>
                 <p><span class="text-highlight">¿Qué significa que el lenguaje sea “vehículo del pensamiento”?</span> El lenguaje no es solo un medio de comunicación; actúa como vehículo que transporta, organiza, expresa y, en algunos casos, moldea el pensamiento.</p>
                 <p><strong>Definición clave:</strong> Es un sistema de símbolos (palabras, reglas gramaticales) que permite codificar ideas internas y exteriorizarlas. Sin él, muchos procesos cognitivos superiores serían imposibles o muy limitados.</p>
                 <p><strong>Pregunta central:</strong> ¿El lenguaje solo expresa pensamientos ya formados (como un traductor) o los construye y limita (como un molde)? Esta idea aparece desde la filosofía antigua y cobra fuerza en la psicología del siglo XX y la filosofía analítica. El lenguaje permite interiorizar lo externo y exteriorizar lo interno, según diversas corrientes.</p>
@@ -247,146 +268,4 @@
                 <h2>Elementos</h2>
                 <p>Los elementos esenciales que convierten al lenguaje en vehículo del pensamiento son:</p>
                 <div class="grid-layout">
-                    <div class="grid-item"><strong>Símbolos y signos</strong> Palabras, gestos o sonidos que representan ideas (no son las ideas mismas, según Saussure).</div>
-                    <div class="grid-item"><strong>Sintaxis (gramática)</strong> Reglas que ordenan los símbolos y permiten construir oraciones complejas (estructura).</div>
-                    <div class="grid-item"><strong>Semántica</strong> El significado de las palabras y cómo se relacionan con conceptos mentales.</div>
-                    <div class="grid-item"><strong>Pragmática</strong> El uso del lenguaje en contexto (intención, implicaturas, diálogo).</div>
-                    <div class="grid-item"><strong>Habla interna</strong> El pensamiento verbal silencioso (Vygotsky), que organiza ideas sin necesidad de hablar en voz alta.</div>
-                    <div class="grid-item"><strong>Productividad y recursividad</strong> Capacidad de generar infinitas ideas nuevas combinando elementos limitados.</div>
-                </div>
-                <p><em>Estos elementos permiten que el pensamiento pase de ser caótico e intuitivo a estructurado, compartible y reflexivo.</em></p>
-            </div>
-        </section>
-
-        <section id="teorias">
-            <div class="card">
-                <h2>Teorías</h2>
-                <h3>El lenguaje como expresión del pensamiento (visión clásica)</h3>
-                <p>El pensamiento existe primero (imágenes mentales, conceptos) y el lenguaje lo traduce. <strong>Ventaja:</strong> explica por qué podemos “pensar sin palabras” (niños pequeños, animales, sueños). <strong>Crítica:</strong> subestima cómo el lenguaje ayuda a estructurar ideas complejas.</p>
-
-                <h3>Hipótesis Sapir-Whorf (relativismo lingüístico)</h3>
-                <p><strong>Versión fuerte (determinismo):</strong> La lengua determina completamente el pensamiento y la percepción del mundo.</p>
-                <p><strong>Versión débil (influencia):</strong> La lengua influye en cómo pensamos, pero no lo dicta por completo.</p>
-                <p><strong>Ejemplo:</strong> Lenguas que distinguen más colores o direcciones cardinales (norte-sur) hacen que sus hablantes perciban el espacio y el tiempo de forma distinta (estudios de Lera Boroditsky). El idioma que hablamos moldea nuestra atención y categorización del mundo.</p>
-
-                <h3>Teoría de Lev Vygotsky (psicología sociocultural)</h3>
-                <p>Pensamiento y lenguaje tienen orígenes diferentes, pero se encuentran y fusionan en el desarrollo infantil. El lenguaje es una herramienta psicológica: primero social (diálogo externo), luego egocéntrico (habla para uno mismo) y finalmente habla interna (pensamiento verbal).</p>
-                <p><span class="text-highlight">Frase clave:</span> “El pensamiento no se expresa en la palabra, sino que se realiza en ella”. El lenguaje reconstruye y organiza el pensamiento. Aplicación en educación: el aprendizaje ocurre en la Zona de Desarrollo Próximo mediante interacción social y lenguaje.</p>
-
-                <h3>Hipótesis del Lenguaje del Pensamiento (Jerry Fodor)</h3>
-                <p>Existe un “Mentalese” o lenguaje mental innato (no es el español, inglés, etc.). El pensamiento es computacional y tiene estructura sintáctica similar a un lenguaje (productivo, sistemático, composicional). El lenguaje natural es solo una “interfaz” para comunicar ese pensamiento interno. <strong>Ventaja:</strong> explica la productividad del pensamiento (podemos generar infinitas ideas nuevas).</p>
-            </div>
-        </section>
-
-        <section id="tipos">
-            <div class="card">
-                <h2>Tipos de Lenguaje</h2>
-                <div class="grid-layout">
-                    <div class="grid-item"><strong>Lenguaje natural</strong> El de la vida cotidiana (español, inglés, etc.). Es flexible, ambiguo y culturalmente moldeado.</div>
-                    <div class="grid-item"><strong>Lenguaje formal o lógico</strong> Matemáticas, lógica simbólica o lenguajes de programación. Preciso y sin ambigüedad.</div>
-                    <div class="grid-item"><strong>Lenguaje interno o egocéntrico</strong> El habla para uno mismo (Vygotsky). Evoluciona del diálogo social al pensamiento silencioso.</div>
-                    <div class="grid-item"><strong>Lenguaje no verbal</strong> Gestos, expresiones faciales o lengua de signos. Vehículo complementario esencial.</div>
-                    <div class="grid-item"><strong>Mentalese</strong> Según Jerry Fodor, un “lenguaje del pensamiento” universal y computacional.</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="medios">
-            <div class="card">
-                <h2>Medios</h2>
-                <div class="grid-layout">
-                    <div class="grid-item"><strong>Oral / Auditivo</strong> Conversación, debate o monólogo interno. Rápido, interactivo y emocional.</div>
-                    <div class="grid-item"><strong>Escrito / Visual</strong> Libros, notas, diarios. Permite fijar el pensamiento y revisarlo.</div>
-                    <div class="grid-item"><strong>Gestual / Corporal</strong> Lengua de signos o gestos. Vehículo completo para comunidades sordas.</div>
-                    <div class="grid-item"><strong>Digital / Multimodal</strong> Redes sociales, chats, IA. Mezcla texto, imagen y video.</div>
-                    <div class="grid-item"><strong>Artístico / Simbólico</strong> Poesía, música o arte visual. Expresa pensamientos profundos.</div>
-                </div>
-                <p><em>Estos medios no solo transmiten el pensamiento: lo transforman (por ejemplo, escribir ayuda a aclarar ideas confusas).</em></p>
-            </div>
-        </section>
-
-        <section id="argumentos">
-            <div class="card">
-                <h2>Argumentos</h2>
-                <p><strong>Posición equilibrada actual:</strong> El lenguaje es un vehículo potente pero no exclusivo. Influye y potencia el pensamiento, especialmente en procesos superiores.</p>
-                <div class="argument-split">
-                    <div class="pro-box">
-                        <h4>A Favor</h4>
-                        <ul>
-                            <li>Facilita el razonamiento abstracto, la memoria y la planificación.</li>
-                            <li>Sin lenguaje complejo, el pensamiento humano superior (ciencia, filosofía, derecho) no existiría.</li>
-                            <li>Niños sordos sin lengua de signos muestran retrasos cognitivos; bilingües piensan de forma más flexible.</li>
-                        </ul>
-                    </div>
-                    <div class="con-box">
-                        <h4>En Contra</h4>
-                        <ul>
-                            <li>El pensamiento no verbal existe (imágenes mentales, intuiciones, animales).</li>
-                            <li>El lenguaje puede distorsionar el pensamiento (ambigüedad, mentiras).</li>
-                            <li>No todo pensamiento es lingüístico (ej. ajedrez visual, música).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="glosario">
-            <div class="card">
-                <h2>Glosario</h2>
-                <div class="glossary">
-                    <div class="glossary-item"><strong>Vehículo del pensamiento:</strong> Sistema que transporta, organiza y exterioriza ideas internas.</div>
-                    <div class="glossary-item"><strong>Relativismo lingüístico:</strong> La lengua influye en cómo percibimos y pensamos el mundo.</div>
-                    <div class="glossary-item"><strong>Habla interna:</strong> Pensamiento verbal silencioso que organiza la cognición.</div>
-                    <div class="glossary-item"><strong>Zona de Desarrollo Próximo:</strong> Espacio de aprendizaje mediado por interacción social.</div>
-                    <div class="glossary-item"><strong>Mentalese:</strong> Lenguaje mental innato y universal propuesto por Fodor.</div>
-                    <div class="glossary-item"><strong>Determinismo lingüístico:</strong> La lengua dicta completamente el pensamiento.</div>
-                    <div class="glossary-item"><strong>Juegos de lenguaje:</strong> El significado surge del uso social (Wittgenstein).</div>
-                    <div class="glossary-item"><strong>Productividad:</strong> Capacidad de generar infinitas combinaciones nuevas.</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="bibliografia">
-            <div class="card">
-                <h2>Bibliografía recomendada</h2>
-                <ul>
-                    <li>Vygotsky, L. <em>Pensamiento y lenguaje</em> (obra clave).</li>
-                    <li>Sapir-Whorf: artículos originales o resúmenes de relativismo lingüístico.</li>
-                    <li>Fodor, J. <em>El lenguaje del pensamiento</em>.</li>
-                    <li>Lledó, E. <em>Filosofía y lenguaje</em>.</li>
-                    <li>Fuentes en línea: Wikipedia “Lenguaje y pensamiento”, artículos de BBC sobre Boroditsky.</li>
-                </ul>
-            </div>
-        </section>
-
-        <footer>
-            Guía de Aprendizaje Basada en Textos Originales | 2026
-        </footer>
-    </div>
-</main>
-
-<script>
-    // Arreglo del scroll y resaltado de navegación
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll("nav a");
-
-    window.onscroll = () => {
-        let current = "";
-        sections.forEach((section) => {
-            const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 150) {
-                current = section.getAttribute("id");
-            }
-        });
-
-        navLinks.forEach((a) => {
-            a.classList.remove("active");
-            if (a.getAttribute("href").includes(current)) {
-                a.classList.add("active");
-            }
-        });
-    };
-</script>
-
-</body>
-</html>
+                    <div class="grid-item"><strong>Símbolos y signos</strong> Palabras,
