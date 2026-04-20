@@ -3,233 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía de Aprendizaje: El Lenguaje y el Pensamiento</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Guía de Estudio: El Lenguaje y el Pensamiento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --bg: #f8fafc;
-            --text: #1e293b;
-            --card-bg: #ffffff;
-            --accent: #f1f5f9;
-            --border: #e2e8f0;
+            --primary: #4f46e5;
+            --secondary: #0ea5e9;
+            --accent: #f59e0b;
+            --bg: #fdfdfd;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
 
+        * { box-sizing: border-box; }
+        
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            color: var(--text-dark);
             margin: 0;
-            padding: 0;
+            display: flex;
+            scroll-behavior: smooth;
+        }
+
+        /* Navegación Lateral */
+        nav {
+            width: 280px;
+            height: 100vh;
+            background: #1e293b;
+            color: white;
+            position: fixed;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            display: none; /* Se activa en pantallas grandes */
+        }
+
+        @media (min-width: 1024px) {
+            nav { display: block; }
+            main { margin-left: 280px; }
+        }
+
+        nav h2 { font-size: 1.2rem; margin-bottom: 2rem; color: var(--secondary); }
+        nav a {
+            display: block;
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        nav a:hover { background: #334155; color: white; }
+
+        /* Contenido Principal */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1000px;
         }
 
         header {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             padding: 4rem 2rem;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 24px;
+            color: white;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: -3rem auto 4rem;
-            padding: 0 1.5rem;
+        header::after {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 200px; height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
-        }
+        h1 { font-size: 2.5rem; margin: 0; line-height: 1.2; }
+        .subtitle { opacity: 0.9; font-weight: 300; margin-top: 1rem; }
 
-        h1 { margin: 0; font-size: 2.5rem; font-weight: 700; }
-        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; margin-top: 0; }
-        h3 { color: #475569; margin-top: 1.5rem; }
-
-        .intro-text { font-size: 1.1rem; color: #475569; }
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
         
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #f1f5f9;
+            line-height: 1.7;
         }
 
-        .feature-item {
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: '';
+            width: 8px;
+            height: 30px;
             background: var(--accent);
-            padding: 1.2rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
+            border-radius: 4px;
         }
 
-        .feature-item strong { color: var(--primary); }
+        h3 { color: var(--secondary); margin-top: 2rem; border-left: 3px solid #e2e8f0; padding-left: 1rem; }
 
-        .cite {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            vertical-align: super;
-            margin-left: 2px;
+        .highlight-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
         }
 
-        ul { padding-left: 1.2rem; }
-        li { margin-bottom: 0.8rem; }
+        .grid-elements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .element-item {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 16px;
+            transition: transform 0.3s;
+        }
+        .element-item:hover { transform: translateY(-5px); border-color: var(--secondary); }
+        .element-item strong { color: var(--primary); display: block; margin-bottom: 0.5rem; }
+
+        .glossary-term {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .glossary-term strong { color: var(--primary); font-size: 1.1rem; }
 
         footer {
-            text-align: center;
+            margin-top: 5rem;
             padding: 2rem;
-            color: #64748b;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-light);
+            border-top: 1px solid #e2e8f0;
         }
 
-        .badge {
-            display: inline-block;
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 0.2rem 0.8rem;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
+        /* Estilo para listas */
+        ul { padding-left: 1.2rem; }
+        li { margin-bottom: 0.8rem; }
+        
+        .flex-group { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .flex-child { flex: 1; min-width: 300px; }
+
     </style>
 </head>
 <body>
 
-<header>
-    <div class="badge">Guía de Estudio</div>
-    <h1>El Lenguaje como Vehículo del Pensamiento [cite: 29]</h1>
-</header>
+<nav>
+    <h2>Contenidos</h2>
+    <a href="#intro">Introducción</a>
+    <a href="#historia">Antecedentes</a>
+    <a href="#elementos">Elementos Esenciales</a>
+    <a href="#teorias">Principales Teorías</a>
+    <a href="#tipos">Tipos y Medios</a>
+    <a href="#argumentos">Argumentos</a>
+    <a href="#practica">Implicaciones</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#biblio">Bibliografía</a>
+</nav>
 
-<div class="container">
-    <section class="card">
-        <h2>1. Introducción [cite: 33]</h2>
-        <p class="intro-text">
-            Esta guía te ofrece un panorama completo, claro y con sustancia sobre el tema. [cite: 29] Está diseñada para que la uses como material de estudio: lee, subraya, reflexiona y responde las preguntas al final. [cite: 30] No es un tratado interminable, pero tampoco un resumen superficial. [cite: 31] El enfoque es filosófico, psicológico y lingüístico, con énfasis en las principales teorías y sus implicaciones. [cite: 32]
-        </p>
-        <p>
-            El lenguaje no es solo un medio de comunicación; [cite: 33] actúa como vehículo que transporta, organiza, expresa y, en algunos casos, moldea el pensamiento. [cite: 34] <strong>Definición clave:</strong> Es un sistema de símbolos (palabras, reglas gramaticales) que permite codificar ideas internas y exteriorizarlas. [cite: 35] Sin él, muchos procesos cognitivos superiores serían imposibles o muy limitados. [cite: 36]
-        </p>
-        <p><em>Pregunta central: ¿El lenguaje solo expresa pensamientos ya formados (como un traductor) o los construye y limita (como un molde)? [cite: 37]</em></p>
-    </section>
+<main>
+    <header>
+        <h1>Guía de Estudio: El Lenguaje como Vehículo del Pensamiento</h1>
+        <p class="subtitle">Un panorama completo sobre la relación entre cognición y comunicación.</p>
+    </header>
 
-    <section class="card">
-        <h2>Elementos Esenciales [cite: 1]</h2>
-        <p>Los elementos esenciales que convierten al lenguaje en vehículo del pensamiento son:</p>
-        <div class="grid">
-            <div class="feature-item"><strong>Símbolos y signos:</strong> Palabras, gestos o sonidos que representan ideas (no son las ideas mismas, según Saussure). [cite: 1]</div>
-            <div class="feature-item"><strong>Sintaxis (gramática):</strong> Reglas que ordenan los símbolos y permiten construir oraciones complejas (estructura). [cite: 2]</div>
-            <div class="feature-item"><strong>Semántica:</strong> El significado de las palabras y cómo se relacionan con conceptos mentales. [cite: 3]</div>
-            <div class="feature-item"><strong>Pragmática:</strong> El uso del lenguaje en contexto (intención, implicaturas, diálogo). [cite: 4]</div>
-            <div class="feature-item"><strong>Habla interna:</strong> El pensamiento verbal silencioso (Vygotsky), que organiza ideas sin necesidad de hablar en voz alta. [cite: 5]</div>
-            <div class="feature-item"><strong>Productividad y recursividad:</strong> Capacidad de generar infinitas ideas nuevas combinando elementos limitados. [cite: 6]</div>
-        </div>
-        <p style="margin-top: 1.5rem; font-style: italic;">Estos elementos permiten que el pensamiento pase de ser caótico e intuitivo a estructurado, compartible y reflexivo. [cite: 7]</p>
-    </section>
-
-    <section class="card">
-        <h2>2. Antecedentes históricos [cite: 40]</h2>
-        <ul>
-            <li><strong>Antigüedad y Modernidad temprana:</strong> Aristóteles y Platón veían las palabras como símbolos de ideas mentales. [cite: 40] John Locke (siglo XVII) afirmaba que las palabras son “marcas sensibles de las ideas” en la mente: el pensamiento es primario y el lenguaje lo representa. [cite: 41]</li>
-            <li><strong>Siglo XVIII-XIX:</strong> Thomas Reid defendía que el lenguaje surge simultáneamente con el pensamiento y actúa como su vehículo natural. [cite: 42] No hay pensamiento sin alguna forma de lenguaje. [cite: 43]</li>
-            <li><strong>Giro lingüístico (siglo XX):</strong> La filosofía (Frege, Wittgenstein) y la psicología ponen el lenguaje en el centro. [cite: 43] Emilio Lledó lo describe como “el vehículo de transmisión y medio donde se produce la interpretación de nuestra experiencia”. [cite: 44] Sin él, no hay continuidad histórica ni progreso moral. [cite: 45]</li>
-        </ul>
-    </section>
-
-    <section class="card">
-        <h2>3. Principales teorías [cite: 45]</h2>
-        
-        <h3>a) El lenguaje como expresión del pensamiento (visión clásica)</h3>
-        <p>El pensamiento existe primero (imágenes mentales, conceptos) y el lenguaje lo traduce. [cite: 46] Explica por qué podemos “pensar sin palabras” (niños pequeños, animales, sueños). [cite: 46] Crítica: subestima cómo el lenguaje ayuda a estructurar ideas complejas. [cite: 47]</p>
-
-        <h3>b) Hipótesis Sapir-Whorf (relativismo lingüístico)</h3>
-        <p><strong>Versión fuerte (determinismo):</strong> La lengua determina completamente el pensamiento. [cite: 48] <strong>Versión débil (influencia):</strong> La lengua influye en cómo pensamos, pero no lo dicta por completo. [cite: 49] Ejemplo: Lenguas que distinguen más colores o direcciones cardinales hacen que sus hablantes perciban el espacio y el tiempo de forma distinta. [cite: 50]</p>
-
-        <h3>c) Teoría de Lev Vygotsky (psicología sociocultural)</h3>
-        <p>Pensamiento y lenguaje se encuentran y fusionan en el desarrollo infantil. [cite: 52] El lenguaje es una herramienta psicológica: primero social, luego egocéntrico y finalmente habla interna. [cite: 53] Frase clave: “El pensamiento no se expresa en la palabra, sino que se realiza en ella”. [cite: 54]</p>
-
-        <h3>d) Hipótesis del Lenguaje del Pensamiento (Jerry Fodor)</h3>
-        <p>Existe un “Mentalese” o lenguaje mental innato y universal. [cite: 56] El pensamiento es computacional y tiene estructura sintáctica similar a un lenguaje. [cite: 57] El lenguaje natural es solo una “interfaz” para comunicar ese pensamiento interno. [cite: 58]</p>
-    </section>
-
-    <section class="card">
-        <h2>Tipos y Medios de Expresión [cite: 8] [cite: 14]</h2>
-        <div class="grid">
-            <div class="feature-item">
-                <strong>Lenguaje Natural:</strong> Flexible y culturalmente moldeado (Sapir-Whorf). [cite: 9]
+    <section id="intro">
+        <div class="card">
+            <h2>1. Introducción</h2>
+            <p>Esta guía te ofrece un panorama completo, claro y con sustancia sobre el tema. Está diseñada para que la uses como material de estudio: lee, subraya, reflexiona y responde las preguntas al final. No es un tratado interminable, pero tampoco un resumen superficial. El enfoque es filosófico, psicológico y lingüístico, con énfasis en las principales teorías y sus implicaciones.</p>
+            
+            <div class="highlight-box">
+                ¿Qué significa que el lenguaje sea “vehículo del pensamiento”? El lenguaje no es solo un medio de comunicación; actúa como vehículo que transporta, organiza, expresa y, en algunos casos, moldea el pensamiento.
             </div>
-            <div class="feature-item">
-                <strong>Lenguaje Formal:</strong> Matemáticas o programación; preciso y sin ambigüedad. [cite: 10]
-            </div>
-            <div class="feature-item">
-                <strong>Oral / Auditivo:</strong> Rápido, interactivo y emocional (Vygotsky). [cite: 15]
-            </div>
-            <div class="feature-item">
-                <strong>Escrito / Visual:</strong> Permite fijar el pensamiento, revisarlo y transmitirlo. [cite: 16]
-            </div>
-            <div class="feature-item">
-                <strong>Digital / Multimodal:</strong> Redes sociales e IA; mezcla texto, imagen y video. [cite: 18] [cite: 19]
-            </div>
-            <div class="feature-item">
-                <strong>Artístico:</strong> Poesía o música; expresa lo que el lenguaje cotidiano no alcanza. [cite: 20]
-            </div>
+
+            <p><strong>Definición clave:</strong> Es un sistema de símbolos (palabras, reglas gramaticales) que permite codificar ideas internas y exteriorizarlas. Sin él, muchos procesos cognitivos superiores serían imposibles o muy limitados. Pregunta central: ¿El lenguaje solo expresa pensamientos ya formados (como un traductor) o los construye y limita (como un molde)? Esta idea aparece desde la filosofía antigua y cobra fuerza en la psicología del siglo XX y la filosofía analítica. El lenguaje permite interiorizar lo externo y exteriorizar lo interno, según diversas corrientes.</p>
         </div>
     </section>
 
-    <section class="card">
-        <h2>4. Argumentos: A favor y en contra [cite: 62]</h2>
-        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
-            <div style="flex: 1; min-width: 250px;">
-                <h3 style="color: #16a34a;">A favor</h3>
-                <ul>
-                    <li>Facilita el razonamiento abstracto y la planificación. [cite: 63]</li>
-                    <li>Sin lenguaje complejo, la ciencia o el derecho no existirían. [cite: 64]</li>
-                    <li>Niños sordos sin señas muestran retrasos cognitivos. [cite: 65]</li>
-                </ul>
-            </div>
-            <div style="flex: 1; min-width: 250px;">
-                <h3 style="color: #dc2626;">En contra</h3>
-                <ul>
-                    <li>El pensamiento no verbal existe (imágenes, intuiciones). [cite: 65]</li>
-                    <li>El lenguaje puede distorsionar (ambigüedad, mentiras). [cite: 66]</li>
-                    <li>No todo es lingüístico (ajedrez visual, música). [cite: 66]</li>
-                </ul>
-            </div>
+    <section id="historia">
+        <div class="card">
+            <h2>2. Antecedentes históricos</h2>
+            <h3>Antigüedad y Modernidad temprana</h3>
+            <p>Aristóteles y Platón veían las palabras como símbolos de ideas mentales. John Locke (siglo XVII) afirmaba que las palabras son “marcas sensibles de las ideas” en la mente: el pensamiento es primario y el lenguaje lo representa.</p>
+            
+            <h3>Siglo XVIII-XIX</h3>
+            <p>Thomas Reid (filósofo escocés del sentido común) defendía que el lenguaje surge simultáneamente con el pensamiento y actúa como su vehículo natural. No hay pensamiento sin alguna forma de lenguaje.</p>
+            
+            <h3>Giro lingüístico (siglo XX)</h3>
+            <p>La filosofía (Frege, Wittgenstein) y la psicología ponen el lenguaje en el centro. Emilio Lledó lo describe como “el vehículo de transmisión y medio donde se produce la interpretación de nuestra experiencia”. Sin él, no hay continuidad histórica ni progreso moral.</p>
         </div>
     </section>
 
-    <section class="card">
-        <h2>Glosario de Términos [cite: 22] [cite: 70]</h2>
-        <ul>
-            <li><strong>Vehículo del pensamiento:</strong> Sistema que transporta, organiza y exterioriza ideas internas. [cite: 22]</li>
-            <li><strong>Mentalese:</strong> Lenguaje mental innato y universal (Fodor). [cite: 25] [cite: 71]</li>
-            <li><strong>Juegos de lenguaje:</strong> El significado surge del uso social (Wittgenstein). [cite: 27] [cite: 61]</li>
-            <li><strong>Zona de Desarrollo Próximo:</strong> Espacio de aprendizaje mediado por interacción social. [cite: 25] [cite: 72]</li>
-            <li><strong>Determinismo lingüístico:</strong> La lengua dicta completamente el pensamiento. [cite: 26] [cite: 72]</li>
-        </ul>
+    <section id="elementos">
+        <div class="card">
+            <h2>Elementos del Vehículo</h2>
+            <p>Los elementos esenciales que convierten al lenguaje en vehículo del pensamiento son:</p>
+            <div class="grid-elements">
+                <div class="element-item"><strong>Símbolos y signos</strong> Palabras, gestos o sonidos que representan ideas (no son las ideas mismas, según Saussure).</div>
+                <div class="element-item"><strong>Sintaxis (gramática)</strong> Reglas que ordenan los símbolos y permiten construir oraciones complejas (estructura).</div>
+                <div class="element-item"><strong>Semántica</strong> El significado de las palabras y cómo se relacionan con conceptos mentales.</div>
+                <div class="element-item"><strong>Pragmática</strong> El uso del lenguaje en contexto (intención, implicaturas, diálogo).</div>
+                <div class="element-item"><strong>Habla interna</strong> El pensamiento verbal silencioso (Vygotsky), que organiza ideas sin necesidad de hablar en voz alta.</div>
+                <div class="element-item"><strong>Productividad y recursividad</strong> Capacidad de generar infinitas ideas nuevas combinando elementos limitados.</div>
+            </div>
+            <p>Estos elementos permiten que el pensamiento pase de ser caótico e intuitivo a estructurado, compartible y reflexivo.</p>
+        </div>
     </section>
 
-    <section class="card">
-        <h2>Bibliografía recomendada [cite: 73]</h2>
-        <ul>
-            <li>Vygotsky, L. <em>Pensamiento y lenguaje</em>. [cite: 73]</li>
-            <li>Fodor, J. <em>El lenguaje del pensamiento</em>. [cite: 73]</li>
-            <li>Lledó, E. <em>Filosofía y lenguaje</em>. [cite: 74]</li>
-            <li>Fuentes en línea: Wikipedia “Lenguaje y pensamiento”, artículos de BBC sobre Boroditsky. [cite: 74]</li>
-        </ul>
-    </section>
-</div>
+    <section id="teorias">
+        <div class="card">
+            <h2>3. Principales teorías (el núcleo del tema)</h2>
+            
+            <h3>a) El lenguaje como expresión del pensamiento (visión clásica)</h3>
+            <p>El pensamiento existe primero (imágenes mentales, conceptos) y el lenguaje lo traduce. <strong>Ventaja:</strong> explica por qué podemos “pensar sin palabras” (niños pequeños, animales, sueños). <strong>Crítica:</strong> subestima cómo el lenguaje ayuda a estructurar ideas complejas.</p>
 
-<footer>
-    Material de estudio basado en textos proporcionados. 2026.
-</footer>
+            <h3>b) Hipótesis Sapir-Whorf (relativismo lingüístico)</h3>
+            <ul>
+                <li><strong>Versión fuerte (determinismo):</strong> La lengua determina completamente el pensamiento y la percepción del mundo.</li>
+                <li><strong>Versión débil (influencia):</strong> La lengua influye en cómo pensamos, pero no lo dicta por completo.</li>
+                <li><strong>Ejemplo:</strong> Lenguas que distinguen más colores o direcciones cardinales (norte-sur) hacen que sus hablantes perciban el espacio y el tiempo de forma distinta (estudios de Lera Boroditsky).</li>
+            </ul>
+            <p><strong>Importancia:</strong> El idioma que hablamos moldea nuestra atención y categorización del mundo.</p>
+
+            <h3>c) Teoría de Lev Vygotsky (psicología sociocultural)</h3>
+            <p>Pensamiento y lenguaje tienen orígenes diferentes (filogenética y ontogenéticamente), pero se encuentran y fusionan en el desarrollo infantil. El lenguaje es una herramienta psicológica: primero social (diálogo externo), luego egocéntrico (habla para uno mismo) y finalmente habla interna (pensamiento verbal). <strong>Frase clave:</strong> “El pensamiento no se expresa en la palabra, sino que se realiza en ella”. El lenguaje reconstruye y organiza el pensamiento. <strong>Aplicación en educación:</strong> el aprendizaje ocurre en la Zona de Desarrollo Próximo mediante interacción social y lenguaje.</p>
+
+            <h3>d) Hipótesis del Lenguaje del Pensamiento (Jerry Fodor)</h3>
+            <p>Existe un “Mentalese” o lenguaje mental innato (no es el español, inglés, etc.). El pensamiento es computacional y tiene estructura sintáctica similar a un lenguaje (productivo, sistemático, composicional). El lenguaje natural es solo una “interfaz” para comunicar ese pensamiento interno. <strong>Ventaja:</strong> explica la productividad del pensamiento (podemos generar infinitas ideas nuevas). <strong>Crítica:</strong> algunos lo ven como demasiado abstracto.</p>
+
+            <h3>e) Otras perspectivas modernas</h3>
+            <p><strong>Wittgenstein:</strong> el significado está en el uso (“juegos de lenguaje”); no hay “lenguaje privado”. <strong>Neurociencia y psicología cognitiva:</strong> el lenguaje influye en funciones ejecutivas, metacognición y autocontrol.</p>
+        </div>
+    </section>
+
+    <section id="tipos">
+        <div class="card">
+            <h2>Tipos y Medios</h2>
+            <h3>Tipos de lenguaje</h3>
+            <ul>
+                <li><strong>Lenguaje natural:</strong> El de la vida cotidiana (español, inglés, etc.). Es flexible, ambiguo y culturalmente moldeado (relativismo lingüístico Sapir-Whorf).</li>
+                <li><strong>Lenguaje formal o lógico:</strong> Matemáticas, lógica simbólica o lenguajes de programación. Preciso y sin ambigüedad; ideal para pensamiento científico.</li>
+                <li><strong>Lenguaje interno o egocéntrico:</strong> El habla para uno mismo (Vygotsky). Evoluciona del diálogo social al pensamiento silencioso.</li>
+                <li><strong>Lenguaje no verbal:</strong> Gestos, expresiones faciales o lengua de signos. Sirve como vehículo complementario, especialmente en personas sordas.</li>
+                <li><strong>Lenguaje mental innato (Mentalese):</strong> Según Jerry Fodor, un “lenguaje del pensamiento” universal y computacional que existe antes del lenguaje natural.</li>
+            </ul>
+            <p>Cada tipo tiene fortalezas y limitaciones según el contexto cognitivo.</p>
+
+            <h3>Medios del lenguaje</h3>
+            <p>Los medios son los canales concretos a través de los cuales el lenguaje actúa como vehículo:</p>
+            <div class="grid-elements">
+                <div class="element-item"><strong>Oral / Auditivo</strong> Conversación, debate o monólogo interno. Rápido, interactivo y emocional.</div>
+                <div class="element-item"><strong>Escrito / Visual</strong> Libros, notas, diarios. Permite fijar el pensamiento, revisarlo y transmitirlo a través del tiempo.</div>
+                <div class="element-item"><strong>Gestual / Corporal</strong> Lengua de signos o gestos. Vehículo completo para comunidades sordas; demuestra que el pensamiento no depende solo del sonido.</div>
+                <div class="element-item"><strong>Digital / Multimodal</strong> Redes sociales, chats, IA. Mezcla texto, imagen y video; acelera el intercambio pero puede fragmentar la profundidad.</div>
+                <div class="element-item"><strong>Artístico / Simbólico</strong> Poesía, música o arte visual. Expresa pensamientos que el lenguaje cotidiano no alcanza.</div>
+            </div>
+            <p>Estos medios no solo transmiten el pensamiento: lo transforman (por ejemplo, escribir ayuda a aclarar ideas confusas).</p>
+        </div>
+    </section>
+
+    <section id="argumentos">
+        <div class="card">
+            <h2>4. Argumentos sobre la esencia del lenguaje</h2>
+            <div class="flex-group">
+                <div class="flex-child">
+                    <h3 style="color: #059669;">Argumentos A Favor</h3>
+                    <ul>
+                        <li>Facilita el razonamiento abstracto, la memoria y la planificación.</li>
+                        <li>Sin lenguaje complejo, el pensamiento humano superior (ciencia, filosofía, derecho) no existiría.</li>
+                        <li>Evidencia: niños sordos sin lengua de signos muestran retrasos cognitivos; bilingües piensan de forma más flexible.</li>
+                    </ul>
+                </div>
+                <div class="flex-child">
+                    <h3 style="color: #dc2626;">Argumentos En Contra</h3>
+                    <ul>
+                        <li>Pensamiento no verbal existe (imágenes mentales, intuiciones, animales).</li>
+                        <li>El lenguaje puede distorsionar el pensamiento (ambigüedad, mentiras).</li>
+                        <li>No todo pensamiento es lingüístico (ej. ajedrez visual, música).</li>
+                    </ul>
+                </div>
+            </div>
+            <p><strong>Posición equilibrada actual:</strong> El lenguaje es un vehículo potente pero no exclusivo. Influye y potencia el pensamiento, especialmente en procesos superiores.</p>
+        </div>
+    </section>
+
+    <section id="practica">
+        <div class="card">
+            <h2>5. Implicaciones prácticas</h2>
+            <ul>
+                <li><strong>Educación:</strong> Fomenta el diálogo y el habla interna para mejorar el aprendizaje (Vygotsky).</li>
+                <li><strong>Psicología:</strong> Terapias basadas en lenguaje (reestructuración cognitiva).</li>
+                <li><strong>Sociedad:</strong> El lenguaje moldea culturas, percepciones y hasta sesgos (ej. género en gramática).</li>
+                <li><strong>Inteligencia artificial:</strong> Los modelos de lenguaje (como yo) simulan pensamiento, pero ¿es pensamiento real o solo vehículo?</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="glosario">
+        <div class="card">
+            <h2>Vocabulario y Glosario</h2>
+            <div class="glossary-term"><strong>Vehículo del pensamiento:</strong> Sistema que transporta, organiza y exterioriza ideas internas.</div>
+            <div class="glossary-term"><strong>Relativismo lingüístico (Sapir-Whorf):</strong> La lengua influye (o determina) cómo percibimos y pensamos el mundo.</div>
+            <div class="glossary-term"><strong>Habla interna:</strong> Pensamiento verbal silencioso que organiza la cognición (Vygotsky).</div>
+            <div class="glossary-term"><strong>Zona de Desarrollo Próximo:</strong> Espacio de aprendizaje mediado por interacción social y lenguaje.</div>
+            <div class="glossary-term"><strong>Mentalese (Lenguaje del Pensamiento):</strong> Hipótesis de Fodor; lenguaje mental innato y universal.</div>
+            <div class="glossary-term"><strong>Determinismo lingüístico:</strong> Versión fuerte del relativismo: la lengua dicta completamente el pensamiento.</div>
+            <div class="glossary-term"><strong>Juegos de lenguaje:</strong> Concepto de Wittgenstein; el significado surge del uso social.</div>
+            <div class="glossary-term"><strong>Productividad:</strong> Capacidad del lenguaje de generar infinitas combinaciones nuevas.</div>
+        </div>
+    </section>
+
+    <section id="biblio">
+        <div class="card">
+            <h2>7. Bibliografía recomendada</h2>
+            <ul>
+                <li>Vygotsky, L. Pensamiento y lenguaje (obra clave).</li>
+                <li>Sapir-Whorf: artículos originales o resúmenes de relativismo lingüístico.</li>
+                <li>Fodor, J. El lenguaje del pensamiento.</li>
+                <li>Lledó, E. Filosofía y lenguaje.</li>
+                <li>Fuentes en línea: Wikipedia “Lenguaje y pensamiento”, artículos de BBC sobre Boroditsky.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        Guía de Aprendizaje - Contenido íntegro de documentos de texto.
+    </footer>
+</main>
 
 </body>
 </html>
